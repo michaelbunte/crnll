@@ -71,6 +71,8 @@ def seek_forwards(f, seek_stack):
             break
         if eco == "":
             print(os.get_terminal_size()[0] * "=" + "\n")
+            seek_stack.append(f.tell())
+            f.seek(pos)
             break
         print(eco, end="")
 
@@ -81,12 +83,23 @@ def seek_backwards(f, seek_stack):
     len(seek_stack) > 1 and seek_stack.pop()
     seek_forwards(f, seek_stack)
 
+def is_eof(f):
+    pos = f.tell()
+    a = f.readline()
+    res = len(a) == 0
+    f.seek(pos)
+    return res
+
 def find_answer(f, seek_stack):
     if len(seek_stack) <= 1:
         return
+    
     l = open(questions_filename, "r")
+
     l.seek(seek_stack[-2])
     line = peek_line(l)
+    l.close()
+
     if len(re.findall("^\\d+\\.", line)) == 1:
         print_answer(int(re.findall("^\\d+", line)[0]))
     elif len(re.findall("^\\d+\\-\\d+", line)) == 1:
@@ -101,18 +114,18 @@ with open(questions_filename, "r") as f:
     print("You are reviewing: " + notes_filename)
     print()
     print("To navigate:")
-    print("\t. - next card")
-    print("\tm - prev card")
-    print("\t, - show answer")
+    print("\t> - next card (or space)")
+    print("\t< - prev card")
+    print("\tm - show answer")
 
     seek_stack = [f.tell()]
 
     while True:
         f.seek(seek_stack[-1])
         char = getch.getch()
-        if char == ".":
+        if char == "." or char == " ":
             seek_forwards(f, seek_stack)
-        elif char == "m":
-            seek_backwards(f, seek_stack)
         elif char == ",":
+            seek_backwards(f, seek_stack)
+        elif char == "m":
             find_answer(f, seek_stack)
