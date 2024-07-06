@@ -22,6 +22,12 @@ SPAS = {
 notes_filename = args.file
 questions_filename = args.questions if args.questions != None else "q_" + notes_filename
 
+def peek_line(f):
+    pos = f.tell()
+    line = f.readline()
+    f.seek(pos)
+    return line
+
 
 def print_answer(num):
     with open(notes_filename, "r") as h:
@@ -56,7 +62,7 @@ def seek_forwards(f, seek_stack):
         g.close()
         if(int(subprocess.run("cat eco.txt | grep -E '^\d+\-?\d*\.' | wc -c | tr -d ' '", **SPAS).stdout) != 0):
             f.seek(pos)
-            print(os.get_terminal_size()[0] * "=")
+            print(os.get_terminal_size()[0] * "=" + "\n")
             seek_stack.append(f.tell())
             break
         print(eco, end="")
@@ -67,8 +73,16 @@ def seek_backwards(f, seek_stack):
     len(seek_stack) > 1 and seek_stack.pop()
     len(seek_stack) > 1 and seek_stack.pop()
     print(len(seek_stack))
-
     seek_forwards(f, seek_stack)
+
+def find_answer(f, seek_stack):
+    if len(seek_stack) <= 1:
+        return
+    l = open(questions_filename, "r")
+    l.seek(seek_stack[-2])
+    line = peek_line(l)
+    if len(re.findall("^\\d+\\.", line)) == 1:
+        print_answer(int(re.findall("^\\d+", line)[0]))
 
 with open(questions_filename, "r") as f:
     seek_stack = [f.tell()]
@@ -78,8 +92,10 @@ with open(questions_filename, "r") as f:
         char = getch.getch()
         if char == "l":
             seek_forwards(f, seek_stack)
-        if char == "j":
+        elif char == "j":
             seek_backwards(f, seek_stack)
+        elif char == "k":
+            find_answer(f, seek_stack)
 
 
 
