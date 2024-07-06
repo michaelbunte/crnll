@@ -114,18 +114,22 @@ with open(questions_filename, "r") as f:
     print("You are reviewing: " + notes_filename)
     print()
     print("To navigate:")
-    print("\t> - next card (or space)")
-    print("\t< - prev card")
-    print("\tm - show answer")
+    print("\t> or f \t- next card")
+    print("\t< \t\t- prev card")
+    print("\tm or space \t- show answer")
 
     seek_stack = [f.tell()]
 
+    is_showing_answer = False
     while True:
         f.seek(seek_stack[-1])
         char = getch.getch()
-        if char == "." or char == " ":
+        if char == "." or char == "f":
             seek_forwards(f, seek_stack)
+            is_showing_answer = False
         elif char == ",":
             seek_backwards(f, seek_stack)
-        elif char == "m":
+            is_showing_answer = False
+        elif (char == "m" or char == " ") and not is_showing_answer:
             find_answer(f, seek_stack)
+            is_showing_answer = True
