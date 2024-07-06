@@ -71,6 +71,15 @@ def seek_forwards(f, seek_stack):
             break
         if eco == "":
             print(os.get_terminal_size()[0] * "=" + "\n")
+
+            # check if EOF
+            r = open(questions_filename, "r")
+            r.seek(seek_stack[-1])
+            linelen = len(r.readline())
+            r.close()
+            
+            if linelen == 0:
+                break
             seek_stack.append(f.tell())
             f.seek(pos)
             break
