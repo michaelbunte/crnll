@@ -2,7 +2,7 @@ import argparse
 import subprocess
 import os
 import getch
-
+import re
 
 
 parser = argparse.ArgumentParser(
@@ -22,6 +22,22 @@ SPAS = {
 notes_filename = args.file
 questions_filename = args.questions if args.questions != None else "q_" + notes_filename
 
+
+def print_answer(num):
+    with open(notes_filename, "r") as h:
+        while True:
+            input = h.readline()
+            if len(re.findall("^\\d+", input)) == 1 and re.findall("^\\d+", input)[0] == str(num):
+                print(input, end="")
+                break
+    if h.eof
+        while True:
+            input = h.readline()
+            if len(re.findall("^#+ ", input)) == 1:
+                break
+            if len(re.findall("^\\d+", input)) == 1:
+                break
+            print(input, end="")
 
 def seek_forwards(f, seek_stack):
     f.seek(seek_stack[-1])
@@ -45,14 +61,14 @@ def seek_forwards(f, seek_stack):
             break
         print(eco, end="")
 
+    
+
 def seek_backwards(f, seek_stack):
     len(seek_stack) > 1 and seek_stack.pop()
     len(seek_stack) > 1 and seek_stack.pop()
     print(len(seek_stack))
 
     seek_forwards(f, seek_stack)
-
-
 
 with open(questions_filename, "r") as f:
     seek_stack = [f.tell()]
