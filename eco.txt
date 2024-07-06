@@ -1,1 +1,1 @@
-1-3. How is data often the limiting factor for applications?
+22. What is a tail latency
