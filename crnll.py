@@ -30,7 +30,7 @@ def print_answer(num):
             if len(re.findall("^\\d+", input)) == 1 and re.findall("^\\d+", input)[0] == str(num):
                 print(input, end="")
                 break
-    if h.eof
+
         while True:
             input = h.readline()
             if len(re.findall("^#+ ", input)) == 1:
