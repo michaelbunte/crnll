@@ -1,4 +1,3 @@
-0. This is another thing
 1-3. How is data often the limiting factor for applications?
 6. What do we expect software to do?
 this is more stuff
@@ -18,4 +17,8 @@ and more stuff
 22. What is a tail latency
 23. Why does AWS target high percentiles? Why not really really high percentiles?
 25. What is tail latency amplification?
-27. What is an example of a one size fits all scalable architecture?
+27-28. What is an example of a one size fits all scalable architecture?
+29. What are the three design principles for software systems?
+30. What are operations teams responsible for?
+31. How do data systems make routine things easy?
+34. What is the agile working pattern?

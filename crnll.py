@@ -123,9 +123,10 @@ with open(questions_filename, "r") as f:
     print("You are reviewing: " + notes_filename)
     print()
     print("To navigate:")
-    print("\t> or f \t- next card")
+    print("\t> or f \t\t- next card")
     print("\t< \t\t- prev card")
     print("\tm or space \t- show answer")
+    print("\tq\t\t- quit")
 
     seek_stack = [f.tell()]
 
@@ -142,3 +143,5 @@ with open(questions_filename, "r") as f:
         elif (char == "m" or char == " ") and not is_showing_answer:
             find_answer(f, seek_stack)
             is_showing_answer = True
+        elif (char == "q"):
+            break
