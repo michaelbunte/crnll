@@ -11,6 +11,8 @@ This script is [kludged](https://en.wikipedia.org/wiki/Kludge) - if in the futur
 2. You'll also need to run `pip install getch` or `pip3 install getch`
 
 ## Running
+To take notes that `crnll` understands, write your notes in a separate file from your questions. Questions and their corresponding notes should be numbered (see the syntax section).
+
 Assuming your notes are held in a file `notes.py`, we can can run 
 
 `python3 crnll.py -u notes.md`
