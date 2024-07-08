@@ -84,6 +84,7 @@ def seek_forwards(f, seek_stack):
             f.seek(pos)
             break
         print(eco, end="")
+    subprocess.run("rm eco.txt", **SPAS)
 
     
 
