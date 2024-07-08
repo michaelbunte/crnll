@@ -41,12 +41,12 @@ That's okay.
 7. One more question
 ```
 
-### Questions example
+### Questions example:
 
 ```
 1. This is a question
 4. I skipped questions 2 and 3. That's okay.
 Multiline questions are okay as well.
 
-5-7. Range questions are okay too. 
+5-7. Range questions are okay.
 ```
